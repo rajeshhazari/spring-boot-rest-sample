@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+  <logger name="org.hibernate.validator" level="warn" />
+  <logger name="org.springframework.web" level="DEBUG" />
+  <logger name="com.rajesh" level="ERROR" />
+
+  <root level="error">
+    <appender-ref ref="STDOUT" />
+  </root>
+</included>

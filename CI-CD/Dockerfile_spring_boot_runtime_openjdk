@@ -1,0 +1,34 @@
+FROM openjdk:18-jdk-alpine3.15
+
+ARG UID=1001
+ARG GID=1000
+ENV USR=api_srv_user
+ENV GRP=srvops
+
+RUN  apk update \
+   && apk upgrade \
+   && apk add ca-certificates \
+   && update-ca-certificates \
+   && apk add --update coreutils && rm -rf /var/cache/apk/*   \
+   && apk add --update tzdata curl unzip bash openssl\
+   && apk add --no-cache nss \
+   && rm -rf /var/cache/apk/* \
+
+# -g is the GID
+#addgroup -g 1000 $GRG
+RUN set -x ; addgroup -g "$GID" -S "$GRP" && \
+        adduser \
+        --disabled-password \
+        -g "$GID"  -D  -s "/bin/sh" -u "$UID"  -G "$GRP" "$USR"
+
+WORKDIR  /opt/apps
+ADD --chown=$USR:$GRP "$WORKDIR"
+USER $USR
+
+ENTRYPOINT ["/bin/sh" , "java", "--version"]
+
+
+### to build:
+## docker build . -t spring-boot-runtime:openjdk-slim -f Dockerfile_spring_boot_runtime_openjdk   --progress auto
+### to run
+## docker run  spring-boot-runtime:openjdk-slim

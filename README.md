@@ -1,9 +1,7 @@
-# spring-boot-rest-sample
+# spring-boot-rest-base
 
-This sample applicaton has spring boot and simple rest controller with response as json and sample response pojo greeting too.
+This sample application is like base spring boot and simple rest controller with response as json and sample response pojo greeting too.
 
-This application also has logging enable, properties files enabled.
-
-This application uses tomcat as embeded container.
-
+This application also has logging enable, metrics and docker build using Jenkins.
+This application uses tomcat as embedded container.
 This project has sample basic test cases too.

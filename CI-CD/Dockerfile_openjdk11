@@ -1,0 +1,18 @@
+FROM alpine:latest
+
+RUN  apk update \
+   && apk upgrade \
+   && apk add ca-certificates \
+   && update-ca-certificates \
+   && apk add --update coreutils && rm -rf /var/cache/apk/*   \
+   && apk add --update openjdk11 tzdata curl unzip bash openssl\
+   && apk add --no-cache nss \
+   && rm -rf /var/cache/apk/*
+RUN export JAVA_HOME="/usr/lib/jvm/default-jvm"  && echo $JAVA_HOME && \
+	$JAVA_HOME/bin/jlink     --compress=2     --module-path $JAVA_HOME/jmods     --add-modules java.base,java.logging,java.xml,jdk.unsupported,java.sql,java.naming,java.desktop,java.management,java.security.jgss,java.security.sasl,java.instrument,jdk.jdwp.agent,java.sql,java.sql.rowset,java.xml.crypto,java.xml     --output $JAVA_HOME/jvm/jdk14-minimal
+
+CMD ["java", "--version"]
+
+###
+### docker build . -t spring-boot-runtime:openjdk11-alpine-base  -f Dockerfile_spring_boot_openjdk11_alpine   --progress auto
+###

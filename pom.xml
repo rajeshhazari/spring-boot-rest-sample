@@ -1,26 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.rajesh.springboot.practice</groupId>
+  <groupId>com.c3transcribe.api.base</groupId>
   <artifactId>spring-boot-rest-base</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Archetype - spring-boot-rest-sample</name>
+  <name>Complete fullstack java api spring-boot-rest api with bootstrap4 and thymeleaf templates</name>
 
     <packaging>jar</packaging>
 
     <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.src.version>18</java.src.version>
-		<java.target.version>18</java.target.version>
+		<java.src.version>17</java.src.version>
+		<java.version>17</java.version>
+		<java.target.version>17</java.target.version>
         <junit.version>4.12</junit.version>
 		<maven.build.timestamp.format>yyyymmddhhmm</maven.build.timestamp.format>
-		<org.projectlombok.version>1.18.12</org.projectlombok.version>
+		<projectlombok.version>1.18.24</projectlombok.version>
 	</properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.7</version>
+        <version>2.7.0</version>
     </parent>
 
 	<developers>
@@ -38,11 +39,13 @@
 	<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+		<version>2.7.0</version>
         </dependency>
 		
 	<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
+		<version>2.7.0</version>
             <exclusions>
             	<exclusion>
             		<groupId>org.apache.tomcat.embed</groupId>
@@ -53,31 +56,40 @@
 	<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+		<version>2.7.0</version>
         </dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>2.7.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>2.7.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<version>2.1.214</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
+			<version>2.7.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>${org.projectlombok.version}</version>
-			<scope>provided</scope>
+			<version>1.18.24</version>
 		</dependency>
 
 
@@ -116,10 +128,10 @@
 		    <artifactId>spring-mock</artifactId>
 		    <version>2.0.8</version>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-test</artifactId>
-		</dependency>
+		</dependency>-->
 		<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -133,7 +145,67 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+					<version>3.0.0-M3</version>
                 </plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.10.1</version>
+					<configuration>
+						<fork>true</fork>
+						<source>${maven.compiler.source}</source>
+						<target>${maven.compiler.target}</target>
+						<release>${maven.compiler.source}</release>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>3.3.0</version>
+					<configuration>
+						<createDependencyReducedPom>true</createDependencyReducedPom>
+						<filters>
+							<filter>
+								<artifact>*:*</artifact>
+								<excludes>
+									<exclude>META-INF/*.SF</exclude>
+									<exclude>META-INF/*.DSA</exclude>
+									<exclude>META-INF/*.RSA</exclude>
+								</excludes>
+							</filter>
+						</filters>
+						<transformers>
+							<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+							<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<mainClass>com.c3transcribe.config.Application</mainClass>
+							</transformer>
+						</transformers>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>shade</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.8</version>
+					<executions>
+						<execution>
+							<id>prepare-agent</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
                 <plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -151,9 +223,108 @@
 						</systemPropertyVariables>
 						<workingDirectory>FORK_DIRECTORY_${surefire.forkNumber}</workingDirectory>
 					</configuration> -->
-			</plugin>
+				</plugin>
              </plugins>
          </build>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<mainClass>com.sample.Demo</mainClass>
+			</properties>
+			<build>
+				<plugins>
+					<!-- Shaded jar with all dependencies -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-shade-plugin</artifactId>
+						<version>3.3.0</version>
+						<configuration>
+							<!-- put your configurations here -->
+							<shadedArtifactAttached>true</shadedArtifactAttached>
+							<shadedClassifierName>shaded</shadedClassifierName>
+							<transformers>
+								<transformer
+										implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.c3transcribe.config.Application</mainClass>
+								</transformer>
+								<!-- To add a specific file at Shaded JAR generation: -->
+								<!--transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+                                  <resource>src/main/resources/res</resource>
+                                  <file>app.properties</file>
+                                </transformer -->
+							</transformers>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>shade</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jdk11</id>
+			<activation>
+				<jdk>11</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.release>11</maven.compiler.release>
+				<maven.compiler.source>11</maven.compiler.source>
+				<maven.compiler.target>11</maven.compiler.target>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk18</id>
+			<activation>
+				<jdk>18</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.release>18</maven.compiler.release>
+				<maven.compiler.source>18</maven.compiler.source>
+				<maven.compiler.target>18</maven.compiler.target>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk17</id>
+			<activation>
+				<jdk>17</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.release>17</maven.compiler.release>
+				<maven.compiler.source>17</maven.compiler.source>
+				<maven.compiler.target>17</maven.compiler.target>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk8</id>
+			<activation>
+				<jdk>1.8</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.release>1.8</maven.compiler.release>
+				<maven.compiler.source>1.8</maven.compiler.source>
+				<maven.compiler.target>1.8</maven.compiler.target>
+			</properties>
+		</profile>
+		<profile>
+			<id>default</id>
+			<activation>
+				<jdk>17</jdk>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<maven.compiler.release>${maven.compiler.source}</maven.compiler.release>
+				<maven.compiler.source>${maven.compiler.source}</maven.compiler.source>
+				<maven.compiler.target>${maven.compiler.target}</maven.compiler.target>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>
 

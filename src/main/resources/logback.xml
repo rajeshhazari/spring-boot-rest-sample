@@ -6,5 +6,9 @@
     </encoder>
   </appender>
 
-  <include resource="app-logging.xml" />
+  <!--<include resource="app-logging.xml" />-->
+  <root level="info">
+    <appender-ref ref="STDOUT"/>
+  </root>
+
 </configuration>

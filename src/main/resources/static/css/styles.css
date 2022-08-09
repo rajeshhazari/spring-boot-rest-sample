@@ -1,0 +1,224 @@
+body-backgound-sans-serif {
+  background-color: #b2cefe;
+    font-family: "Helvetica", sans-serif;
+    color: purple;
+}
+ h1 {
+    color: Azure;
+    font-family: "Times New Roman", serif;
+  }
+
+
+
+
+
+
+
+.darkerBackground {
+  background-color: #99bbff;
+}
+
+.topDivider {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #F5FFFA;
+  padding-bottom: 10px;
+}
+
+
+.stylishBox {
+  background-color: #c1ebec;
+  color: #A52A2A;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #F5FFFA;
+  border-radius: 10px;
+}
+
+.someSpacing {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.smallPictures {
+  width: 100px;
+}
+
+.mediumPictures {
+  width: 200px;
+}
+
+.frontPage {
+    background: #48D1CC;
+    /*background: linear-gradient(#b2cefe, #b2cefe, #baed91, #b2cefe );*/
+    background: linear-gradient(to right, #b2cefe, #c1ebec);
+}
+
+.layered-background {
+  background: linear-gradient(to right, transparent, mistyrose);
+  /*text-align: center;*/
+  font-family: arial, sans-serif;
+
+}
+
+#owly {
+  width: 100px;
+  border-radius: 100%;
+}
+#owly:hover {
+  
+  animation-name: rollOver;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+}
+
+@keyframes rollOver {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.niceLinks {
+  text-decoration: none;
+  color: #FFFAF0;
+}
+.niceLinks:hover {
+  color: #00FF7F;
+}
+
+/**********************************
+This section is for styling tables
+***********************************/
+table, th, td {
+  border: 1px solid HoneyDew;
+  border-collapse: collapse;
+}
+tr {
+  background-color: PaleTurquoise;
+}
+th, td {
+  vertical-align: top;
+  padding: 5px;
+  text-align: left;
+}
+th {
+  color: purple;
+}
+td {
+  color: purple;
+}
+
+.lightbox {
+    background: rgba(0,0,0,0.8);
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    visibility: display;
+    z-index: 999;
+}
+
+.lightbox:target {
+    visibility: visible;
+}
+  .starthidden {
+    display: none;
+  }
+
+/********************************/
+
+
+
+body {
+  font-family: sans-serif;
+  background-color: #fafafa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+}
+
+
+
+.rotate {
+   width:80px;
+   height:80px;
+   animation: rotation infinite 3s linear;
+}
+
+@keyframes rotation{
+  from{
+    transform:rotate(0deg);
+  }
+  
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* 
+override the CSS from Bootstrap by using "!important"
+
+*/
+
+
+.nav-link {
+  color: #ffffff!important;
+}
+
+.nav-link:focus, 
+.nav-link:hover {
+  color: #ffffff!important;
+}
+
+
+a.facebook
+{
+    background: url('images/social_facebook_box_blue.png');
+    /*
+    *base 64 encode as mentioned here
+    *https://blog.iconfinder.com/base64-encoding-assets-the-what-when-and-how-c59e577738aa
+    */
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABOtJREFUeNrkV81rXUUUPzP3vveSvEBS41P8bohSqC6iKbiooLhxpWSrO8E/oCtFLbhyIbQYUEFx4cY/oN246qJ140KFSAWtoJuAUoWatMnLzf2Y4zlnPu5M733ZduENk5k3M3fOb875nd/MVYgI9/LRcI+f3DeUUnD29c+XAHELATepaxnEO2gr8G3nMT8Wt/28njF6dundS1Sf++Hyu3t+HeUbL7zxBRu/OjfK19ceX4H5uYGDRgsZEMOGi0FojAl1w3Vj2uJ+11Eft+u6guJwSms127TaS99ffm8v8QDvnI2f3TgJw0FOHrFe8SDIFpXUYF3bxatQN9LHNZeS+6sGFLWV1lQyONzfWzdotmjRNxMOsNuffOJ+GA1zyLSCPNNSBrmGYZ5Rf0bAbOG+nPoyqjOak+VK3uGiuTjwqt0dtVE2lQ9GvNnNDgc45gvzA3lZu4V4QVnIrWQrcj8Z1RQXHjdU9nYLuHNQgvEh4BA1LkQNc8MIAA6jW2u5C4AGV5YXxIx3f1ssBxiBCkAA9qclXP/tJry48RCcOb0qbtaKwbO72RNa+j747FsYZExOAkJ9cepHHkBH1qRHgPF8Jp0QzxGRF/n1j3/g/bc2YO2xE7C4uAij0SiA7iyEPoNCVqQAEP08biiphf3QZgC70wO5vV/A+qkVMT6ZTGA4HMrOE7sC1rgUNeIBxHSjOoYpRjnKDq0YNT6l2phy/fetA3L7gzAej8V4nucCIC5ZlgVQ6D0gNmaEgA0qgwl77Tso5AppaKx3xgtDcTsb8s83127AR19eExJ7o8p5wG7QzAqB27WxTMXGsg1NLEAOhMt5TzjLbgv706+/gwfum6c5pAVVTfOoVFYfbBjSEMRpCDt/3ZZdLczllOs25zExjkGIGNQzT03EcBz7o7KC8bwWoNZjHEIG0EhtTNPvAUZWElJD5JoeanEh/3lNkPSjf00AgTbd7mI8j+1PC1HAsqrEU6apBUwIw6w0ZLScpyI2xqYT1hhemhaVFH6/OKoC2RIABOywMC5btEWtOaRHgYT9HACb64SX5iiJb5vCFsDBtILNl9dg9dElEZk+D1x4+xWrmk6Uft+5BR9/dTXEX+q+45gHWUpZAwyqoOWWMxjIeGp1As89/YgwnwunX/w8v37S5b5V059u3KTdV60QBS/0hKAmI5oV12WCkgRKj2I2GOd97y0n6t/+5U8KS+nibuxmZimhEMUJvkpUFJ0WGKvxPbGf9fz4845zu1dBMysNLbNlVMXHgxMjY+t3Ll6x4aL2J+dfhWdPP5wYpFsVXzoC0Zr6KHE/ziIhuB3GZxJiq4TGvUjyIGBY0Mqy7OyYjVdHdxLSJQQ8VoqN3ZlHKmHBNg3lRZfPTFS5HdDvNBx4l3GM2O+kuC8E6ESkleR254jdRZU763ufaL6cgNGF9tgQeNkVowaT3UNQMXusgrZa0Tn7/ZEe+I7RMWw6aZgcx1VVth6IXR8Zx6hf9QhRSLfIYELA4JHuh8kun2DGhjmQL4lh5AkvNP0RwIhHvQTc7QDgj4aymLpDIyZQSqSwM4jvDcdxoL0D2FrGL/V54Bx/NBQH/9JJVpAsV0nsQhaEuM76pox3a8Lc6Itqm22FL7L4MnHmtQ+XaOqWu7cvB8YiBOPuppqy2YPzY1E7cbv7NLt+5UL30+x/+3X8nwADAGdc48ttRnltAAAAAElFTkSuQmCC');
+}
+
+.forsted-glass-card {
+  border-radius: 8px;
+  background-filter:blur(20px);
+  background-color: rgba(255,255,255,0.5);
+  box-shadow: 0 1px 12px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.3);
+} 
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

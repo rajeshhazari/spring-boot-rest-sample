@@ -3,21 +3,22 @@
  */
 package com.rajesh.service.test;
 
-import java.util.Map;
-
+import com.c3transcribe.config.Application;
+import com.c3transcribe.model.Greeting;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.rajesh.springboot.config.Application;
+import java.util.Map;
+
 import static org.assertj.core.api.BDDAssertions.then;
 
 
@@ -44,8 +45,8 @@ public class ServiceConfigurationTest {
 	@Test
 	public void shouldReturn200WhenSendingRequestToController() throws Exception {
 		@SuppressWarnings("rawtypes")
-		ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-				"http://localhost:" + this.port + "/sample/service", Map.class);
+		ResponseEntity<String> entity = this.testRestTemplate.getForEntity(
+				"http://localhost:" + this.port + "/api/v1/service", String.class);
 
 		then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
@@ -53,8 +54,8 @@ public class ServiceConfigurationTest {
 	@Test
 	public void shouldReturn200WhenSendingRequestToManagementEndpoint() throws Exception {
 		@SuppressWarnings("rawtypes")
-		ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-				"http://localhost:" + this.mgt + "/service/greeting", Map.class);
+		ResponseEntity<Greeting> entity = this.testRestTemplate.getForEntity(
+				"http://localhost:" + this.mgt + "/api/v1/greeting", Greeting.class);
 
 		then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}

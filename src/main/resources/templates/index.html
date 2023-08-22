@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
   <head>
-  <title>Welcome to c3transcribe.com!</title>
+  <title>Welcome to example.com!</title>
   <meta name="viewport" content=" Welcome page ">
   <meta name="meta" tags=" Welcome page ">
 
@@ -44,7 +44,7 @@
           <span class="navbar-toggler-icon">
           </span>
         </button>
-          <a class="navbar-brand" href="index"> <span class="content centre">C3Transcribe<span>
+          <a class="navbar-brand" href="index"> <span class="content centre">Example Website<span>
           <img th:src="@{/static/images/waves_icon.png}" class="rotate" style="width:30px; height: 30px;"/>
           </a>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -52,34 +52,16 @@
             <li class="nav-item">
               <a class=" fas fas-bars fas-2 nav-link " data-bs-toggle="collapse" href="#home">Home</a>
             </li>
-            <li class="nav-item">
-              <a class=" fas fas-bars fas-2 nav-link "  href="./birds-index.html">birds-index</a>
-            </li>
-            <li class="nav-item">
-              <a class=" fas fas-bars fas-2  nav-link" data-bs-toggle="collapse" href="#search" onclick="activateTab(e)">Search</a>
-            </li>
 
             <li class="nav-item">
               <a class="fas fas-bars fas-2  nav-link" data-bs-toggle="collapse" href="#contact" 
-              onclick="activateTab(e)" >Contact me</a>
+              onclick="activateTab(e)" >Contact Us</a>
             </li>
 
             <li class="nav-item">
-              <a class="fas fas-bars fas-2  nav-link"  href="html/public/login.html">login</a>
+              <a class="fas fas-bars fas-2  nav-link"  href="public/login">login</a>
             </li>
 
-            <li class="nav-item">
-              <a class="fas fas-bars fas-2  nav-link" target="_blank" href="http://rajraspicam01.c3transcribe.com">cam01
-              <img src="small_cam_logo.png" alt="Backyard Cam01" style="width:10px;"/><i class='fas fas-user '></i> 
-              </a>
-            </li>
-
-
-            <li class="nav-item">
-              <a class="fas fas-bars fas-2 nav-link" target="_blank" href="http://rajraspicam02.c3transcribe.com/">cam02
-                <img src="small_cam_logo.png" alt="FrontYard Cam01" style="width:10px;"/><i class='fas fas-users' style='font-size:14px; color:red'></i>
-              </a>
-            </li>
           </ul>
         </div>
     </nav>
@@ -87,10 +69,10 @@
     </header>
     
 
-      <div class="jumbotron jumbotron-fluid">
+      <div class="jumbotron">
           <div class="container">
               <h1>Hi, Welcome</h1>
-              <p class="lead">C3Transcribe.com is an <small> website </small> providing quality of online transcribtion services for limited set of audio and video codes/format using latest opensource information technology.</p>
+              <p class="lead">Example.com is an <small> website </small> providing quality of online services for xyz and using latest and greatest information technology.</p>
               <div class="alert alert-primary" role="alert">
                 <p> This is developed and maintained by Rajesh Hazari.
                 <a href="#contact"  onclick="setEleActive" class="alert-link niceLinks"><strong>Contact Developer!</strong></a>
@@ -106,9 +88,9 @@
         <label class="custom-control-label" for="switch1">Toggle me</label>
       </div>
       <!-- Tab panes -->
-          <div class="tab-content">
+          <div class="tabs tab-content">
             <div id="home" class="container tab-pane active"><br>
-              <p>Welcome to C3Transcribe.</p>
+              <p>Welcome to Example.</p>
             </div>
             <div id="search" class="container tab-pane fade rounded-pill invisible"><br>
             <div class="form-group">

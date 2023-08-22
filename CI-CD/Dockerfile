@@ -23,27 +23,36 @@ ARG OPEN_JDK_BASE_IMAGE=openjdk-slim
 
 
 
-ENV JAVA_OPTS="-Xmx 256mb "
-ENV MAIN_CLASS App.java
 ARG PORT=8585
-ARG HEALTHCHECK_URL  /api/v1/health
+ARG HEALTHCHECK_URL=/actuator/health
 ARG DEPENDENCY=target/dependency
 ARG API_NAME=transcribeapi
+ARG ARTIFACT_NAME=transcribeapi
+ARG API_VERSION=0.0.1-SNAPSHOT
 ARG STORE_PASS=admin111
+ARG KEY_STORE_PASS=admin111
+ARG APP_HOME=/apps
+ARG image_tag=$AP_NAME:$API_VERSION
+ARG APP_PROPERTIES_FILE="application-dev.properties"
 
-USER $USERNAME
+
+ENV APP_PROPERTIES_FILE $APP_PROPERTIES_FILE
+ENV MAIN_CLASS=Application.java
+ENV SPRING_PROFILE=dev
+ENV JAVA_OPTS="-Xmx 1000mb -Xms 500mb -Dspring.profiles.active=${SPRING_PROFILE}"
+ENV HEALTHCHECK_URL=actuator/health
+
 
 # to check for open ports in the container: docker run <container id> netstat -tan
 #ARG SSH_KEY
-#RUN echo "$SSH_KEY" > /root/.ssh/id_rsa
+#RUN echo "$SSH_KEY" > ~/.ssh/id_rsa
 
-#find /usr/share/ca-certificates/mozilla/ -name "*.crt" -type f -exec  $JAVA_HOME/bin/keytool -importcert  -cacerts  -storepass changeit -noprompt  -file '{}' -alias '{}' \; && \
+#find /usr/share/ca-certificates/mozilla/ -name "*.crt" -type f -exec  $JAVA_HOME/bin/keytool -importcert  -cacerts  -storepass $STORE_PASS -noprompt  -file '{}' -alias '{}' \; && \
 #  $JAVA_HOME/bin/keytool -list -keystore $JAVA_HOME/lib/security/cacerts --storepass $STORE_PASS
 
-ENV APP_HOME /opt/apps
 
 RUN  echo $PATH $JAVA_HOME && \
-     mkdir -p /opt/apps/$API_NAME && \
+     mkdir -p /apps/$API_NAME && \
 	 mkdir -p $APP_HOME/configs && \
      mkdir -p $APP_HOME/logs && \
      mkdir -p $APP_HOME/temp && \
@@ -51,9 +60,9 @@ RUN  echo $PATH $JAVA_HOME && \
      mkdir -p $HOME/temp/logs/
 
 WORKDIR $APP_HOME
-
+USER $USERNAME
+#RUN echo "$SSH_KEY" > ~/.ssh/id_rsa
 #JMX
-
 #EXPOSE 9010
 
 # JVM debugging port
@@ -63,12 +72,23 @@ COPY ./BOOT-INF/lib $APP_HOME/$API_NAME/lib
 COPY ./META-INF $APP_HOME/$API_NAME/META-INF
 COPY ./BOOT-INF/classes $APP_HOME/$API_NAME
 COPY ./org $APP_HOME/$API_NAME/org
+
 #RUN cp $APP_HOME/apps/$API_NAME/classes/sample.jks $APP_HOME/apps/$API_NAME/classes/sample.cert
 #ENTRYPOINT ["sh", "-c", "$JAVA_OPTS -Djava.security.egd=file:/dev/urandom -jar app.jar "]
-HEALTHCHECK --interval=5s --timeout=5s   CMD curl -k --fail https://localhost:8585/$HEALTHCHECK_URL|| exit 1
-ENTRYPOINT ["sh", "-c",  "java  -cp  /opt/apps/$API_NAME:/opt/apps/$API_NAME/lib/*:/opt/apps/$API_NAME/classes:/opt/apps/$API_NAME/org    $JAVA_OPTS   -Djava.security.egd=file:/dev/urandom   $MAIN_CLASS " ]
 
+RUN if [ -e $APP_HOME/configs/$APP_PROPERTIES_FILE ]; then  \
+        JAVA_OPTS=$JAVA_OPTS" -DSPRING_CONFIG_FILE=$APP_HOME/configs/$APP_PROPERTIES_FILE --DSPRING_PROFILES_ACTIVE=$APP_PROFILE  -D" \
+    fi \
+RUN if [ ! -z $APP_PROFILE ]; then  \
+        JAVA_OPTS=$JAVA_OPTS" --DSPRING_PROFILES_ACTIVE=$APP_PROFILE " \
+    fi
+
+HEALTHCHECK --interval=20s --timeout=5s  retries: 5  start_period: 60s  CMD curl -k --fail https://localhost:$PORT/$HEALTHCHECK_URL | grep UP || exit 1
+#test: ["CMD-SHELL", "pg_isready -U postgres"]
+ENTRYPOINT ["sh", "-c",  "java  -cp  $APP_HOME/$API_NAME:$APP_HOME/$API_NAME/lib/*:$APP_HOME/$API_NAME/classes:$APP_HOME/$API_NAME/org    $JAVA_OPTS   -Djava.security.egd=file:/dev/urandom   $MAIN_CLASS " ]
+
+#image_tag
 #docker build -t <image_tag> . && docker run -p 8585:8585 <image_tag>
-#docker build -t <image_tag> . && docker run -p 8585:8585 -p 5005:5005 --env JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 \
+#docker build -t <image_tag> . && docker run -p 8585:8585 -p 5005:5005 --env JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 --env MAIN_CLASS=com.htsvsystems.config.Application \
  # --env JAVA_OPTS=-Dlogging.level.org.springframework=DEBUG <image_tag>
-#docker build -t <image_tag> . && docker run -p 8080:8080 -v /opt/spring-boot/test/config:$APP_HOME/apps/configs:ro <image_tag>
+#docker build -t <image_tag> . && docker run -p 8080:8080 -v /opt/spring-boot/test/config:$APP_HOME/configs:ro <image_tag>

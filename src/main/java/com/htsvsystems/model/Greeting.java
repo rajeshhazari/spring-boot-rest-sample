@@ -1,4 +1,4 @@
-package com.c3transcribe.model;
+package com.htsvsystems.model;
 
 public class Greeting {
 

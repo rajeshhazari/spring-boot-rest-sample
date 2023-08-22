@@ -21,7 +21,7 @@ RUN set -x ; addgroup -g "$GID" -S "$GRP" && \
         --disabled-password \
         -g "$GID"  -D  -s "/bin/sh" -u "$UID"  -G "$GRP" "$USR"
 
-WORKDIR  /opt/apps
+WORKDIR  /apps
 ADD --chown=$USR:$GRP "$WORKDIR"
 USER $USR
 

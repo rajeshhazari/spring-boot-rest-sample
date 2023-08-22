@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.c3transcribe.services;
+package com.htsvsystems.services;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.c3transcribe.model.Greeting;
+import com.htsvsystems.model.Greeting;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;

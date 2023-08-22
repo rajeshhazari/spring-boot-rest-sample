@@ -3,8 +3,8 @@
  */
 package com.rajesh.service.test;
 
-import com.c3transcribe.config.Application;
-import com.c3transcribe.model.Greeting;
+import com.htsvsystems.config.Application;
+import com.htsvsystems.model.Greeting;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
